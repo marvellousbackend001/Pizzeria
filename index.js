@@ -22,6 +22,16 @@ app.post("/pizzas", bodyParser.json(), function (req, res) {
         res.send(result);
     });
 });
+// Endpoint for deleting a pizza by ID
+app.delete("/pizzas/:pizza_id", bodyParser.json(), function (req, res) {
+    const pizza_id = req.params.pizza_id;
+    const sql = `DELETE FROM pizzas WHERE id = ?`;
+    con.query(sql, [pizza_id], function (err, result) {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
 //endpiont for listing all pizzas
 app.get("/api/pizzas", bodyParser.json(), function (req, res) {
     const sql = `SELECT * FROM pizzas`;
@@ -38,9 +48,10 @@ app.post("/order", bodyParser.json(), function (req, res) {
         res.send(result);
     });
 });
-app.post("/order/:order_id/item", bodyParser.json(), function (req, res) {
+// Endpoint for adding an item to an existing order
+app.post("/order/:order_id/items", bodyParser.json(), function (req, res) {
     const { pizza_id, quantity } = req.body;
-    const order_id = req.params.order.id;
+    const order_id = req.params.order_id;
     const query = `INSERT INTO order_items (order_id, pizza_id, quantity) VALUES (?, ?, ?)`;
     con.query(query, [order_id, pizza_id, quantity], function (err, result) {
         if (err) throw err;
