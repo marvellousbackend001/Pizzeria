@@ -1,5 +1,5 @@
 ### creating an endpoint for addind pizza
-POST http://localhost:3000/pizzas
+POST http://localhost:4000/pizzas
 Content-Type: application/json
 
 {
@@ -8,19 +8,19 @@ Content-Type: application/json
 }
 
 ### endpiont for listing all pizzas
-GET http://localhost:3000/api/pizzas
+GET http://localhost:4000/api/pizzas
 Content-Type: application/json
 
 ###  Endpoint for deleting a pizza by ID
-DELETE http://localhost:3000/pizzas/1
+DELETE http://localhost:4000/pizzas/1
 Content-Type: application/json
 
 ### endpoint for ordering pizza
-POST http://localhost:3000/order
+POST http://localhost:4000/order
 Content-Type: application/json
 
 ### Endpoint for adding an item to an existing order
-POST http://localhost:3000/order/8/items
+POST http://localhost:4000/order/8/items
 Content-Type: application/json
 
 {

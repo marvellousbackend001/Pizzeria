@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(cors());
-/****************connecting to  mysql************************* */
+/****************Connecting To  Mysql************************* */
 const con = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
@@ -13,7 +13,7 @@ const con = mysql.createConnection({
     database: "pizza_order",
     port: "3306",
 });
-//creating an endpoint for addind pizza
+//Creating An Endpoint For Addind Pizza
 app.post("/pizzas", bodyParser.json(), function (req, res) {
     const { name, price } = req.body;
     const sql = `INSERT INTO pizzas (name, price) VALUES (?, ?)`;
@@ -22,7 +22,7 @@ app.post("/pizzas", bodyParser.json(), function (req, res) {
         res.send(result);
     });
 });
-// Endpoint for deleting a pizza by ID
+// i added an Endpoint For Deleting A Pizza By ID
 app.delete("/pizzas/:pizza_id", bodyParser.json(), function (req, res) {
     const pizza_id = req.params.pizza_id;
     const sql = `DELETE FROM pizzas WHERE id = ?`;
@@ -30,9 +30,8 @@ app.delete("/pizzas/:pizza_id", bodyParser.json(), function (req, res) {
         if (err) throw err;
         res.send(result);
     });
-});
-
-//endpiont for listing all pizzas
+})
+//Endpiont For Listing All Pizzas
 app.get("/api/pizzas", bodyParser.json(), function (req, res) {
     const sql = `SELECT * FROM pizzas`;
     con.query(sql, function (err, results) {
@@ -40,7 +39,7 @@ app.get("/api/pizzas", bodyParser.json(), function (req, res) {
         res.send(results);
     });
 });
-//endpoint for ordering pizza
+//Endpoint For Ordering Pizza
 app.post("/order", bodyParser.json(), function (req, res) {
     const sql = 'INSERT INTO orders (created_at) VALUES (CURRENT_TIMESTAMP)';
     con.query(sql, function (err, result) {
@@ -48,7 +47,7 @@ app.post("/order", bodyParser.json(), function (req, res) {
         res.send(result);
     });
 });
-// Endpoint for adding an item to an existing order
+// Endpoint For Adding An Item To An Existing Order
 app.post("/order/:order_id/items", bodyParser.json(), function (req, res) {
     const { pizza_id, quantity } = req.body;
     const order_id = req.params.order_id;
@@ -56,7 +55,7 @@ app.post("/order/:order_id/items", bodyParser.json(), function (req, res) {
     con.query(query, [order_id, pizza_id, quantity], function (err, result) {
         if (err) throw err;
         res.send(result);
-    });
+    })
 });
-app.listen(3000)
-    , console.log("your server is running at port 3000")
+app.listen(4000)
+    , console.log("your server is running at port 4000")
